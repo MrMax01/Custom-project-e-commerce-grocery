@@ -26,10 +26,10 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private ProductStatus product_status;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductReview> reviews;
 
-     @OneToMany(mappedBy = "product")
+     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderDetail> OrderDetails;
 
 
