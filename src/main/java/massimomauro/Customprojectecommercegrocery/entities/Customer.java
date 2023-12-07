@@ -3,6 +3,7 @@ package massimomauro.Customprojectecommercegrocery.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import massimomauro.Customprojectecommercegrocery.entities.enums.Role;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,6 +21,7 @@ public class Customer {
     private String email;
     private String password;
     private String partiata_iva;
+    private Role role;
     @OneToMany(mappedBy = "customer")
     private List<Order> orders;
 

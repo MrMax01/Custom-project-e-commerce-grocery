@@ -3,6 +3,7 @@ package massimomauro.Customprojectecommercegrocery.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import massimomauro.Customprojectecommercegrocery.entities.enums.Role;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,6 +24,8 @@ public class Supplier {
     private long telephone;
     private String address;//prendere in considerazione di creare un oggetto address
     private String email;
+    private Role role;
+
     private long partita_iva;
 
 
