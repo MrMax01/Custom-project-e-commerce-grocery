@@ -17,6 +17,7 @@ public class Customer {
     private UUID id;
     private String name;
     private String surname;
+    private String email;
     private String password;
     private String partiata_iva;
     @OneToMany(mappedBy = "customer")
