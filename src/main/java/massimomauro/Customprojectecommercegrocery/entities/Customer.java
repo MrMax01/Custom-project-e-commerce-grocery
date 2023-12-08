@@ -10,12 +10,14 @@ import java.util.UUID;
 
 @Entity
 @Table(name="customers")
+@Getter
+@Setter
 
 public class Customer extends Entrepreneur {
 
-    private String partiata_iva;
 
     @OneToMany(mappedBy = "customer")
     private List<Order> orders;
+
 
 }

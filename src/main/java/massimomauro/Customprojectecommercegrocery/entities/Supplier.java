@@ -14,7 +14,7 @@ import java.util.UUID;
 
 public class Supplier extends Entrepreneur{
 
-    private long partita_iva;
+
 
     @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products;

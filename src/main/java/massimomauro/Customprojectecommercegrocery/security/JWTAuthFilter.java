@@ -1,5 +1,5 @@
 
-/*
+
 package massimomauro.Customprojectecommercegrocery.security;
 
 
@@ -7,7 +7,9 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import massimomauro.Customprojectecommercegrocery.entities.Entrepreneur;
 import massimomauro.Customprojectecommercegrocery.exceptions.UnauthorizedException;
+import massimomauro.Customprojectecommercegrocery.services.EntrepreneursService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,7 +26,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
     @Autowired
     private JWTTools jwtTools;
     @Autowired
-    private UsersService usersService;
+    private EntrepreneursService entrepreneursService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -42,7 +44,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
             // 3. Se è tutto OK
             // 3.1 Cerco l'utente nel database tramite id (l'id sta nel payload del token, quindi devo estrarlo da lì)
             String id = jwtTools.extractIdFromToken(token);
-            User currentUser = usersService.findById(UUID.fromString(id));
+           Entrepreneur currentUser = entrepreneursService.findById(UUID.fromString(id));
 
             // 3.2 Segnalo a Spring Security che l'utente ha il permesso di procedere
             // Se non facciamo questa procedura, ci verrà comunque tornato 403
@@ -61,8 +63,6 @@ public class JWTAuthFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         // Questo metodo serve per specificare quando il filtro JWTAuthFilter non debba entrare in azione
         // Ad es tutte le richieste al controller /auth/** non devono essere filtrate
-        return new AntPathMatcher().match("/auth/**", request.getServletPath());
+        return new AntPathMatcher().match("/*", request.getServletPath());
     }
 }
-*/
-

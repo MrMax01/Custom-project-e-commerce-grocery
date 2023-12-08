@@ -1,11 +1,12 @@
-/*
+
 package massimomauro.Customprojectecommercegrocery.security;
 
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import massimomauro.Customprojectecommercegrocery.entities.Customer;
-import massimomauro.Customprojectecommercegrocery.entities.Supplier;
+
+import massimomauro.Customprojectecommercegrocery.entities.Entrepreneur;
+
 import massimomauro.Customprojectecommercegrocery.exceptions.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,7 @@ public class JWTTools {
     @Value("${spring.jwt.secret}")
     private String secret;
 
-    public String createToken(Customer user){
+    public String createToken(Entrepreneur user){
 
         return Jwts.builder().setSubject(String.valueOf(user.getId()))// Subject <-- A chi appartiene il token
                 .setIssuedAt(new Date(System.currentTimeMillis())) // Data di emissione (IAT - Issued At)
@@ -43,4 +44,3 @@ public class JWTTools {
         // A noi interessa l'id dell'utente
     }
 }
-*/

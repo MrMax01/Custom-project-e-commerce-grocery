@@ -1,5 +1,5 @@
 
-/*
+
 package massimomauro.Customprojectecommercegrocery.security;
 
 
@@ -80,4 +80,3 @@ public class SecurityConfig {
         return source;
     }
 }
-*/
