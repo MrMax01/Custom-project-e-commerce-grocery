@@ -11,23 +11,10 @@ import java.util.UUID;
 
 @Entity
 @Table(name="suppliers")
-@Getter
-@Setter
-public class Supplier {
-    @Id
-    @GeneratedValue
-    private UUID id;
-    private String avatar;
-    private String name;
-    private String surname;
-    private String company_name;
-    private long telephone;
-    private String address;//prendere in considerazione di creare un oggetto address
-    private String email;
-    private Role role;
+
+public class Supplier extends Entrepreneur{
 
     private long partita_iva;
-
 
     @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products;

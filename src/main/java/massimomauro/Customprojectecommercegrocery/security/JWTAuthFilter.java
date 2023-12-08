@@ -1,12 +1,13 @@
+
+/*
 package massimomauro.Customprojectecommercegrocery.security;
 
-import application.U5D16.entities.User;
-import application.U5D16.exceptions.UnauthorizedException;
-import application.U5D16.services.UsersService;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import massimomauro.Customprojectecommercegrocery.exceptions.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -63,3 +64,5 @@ public class JWTAuthFilter extends OncePerRequestFilter {
         return new AntPathMatcher().match("/auth/**", request.getServletPath());
     }
 }
+*/
+
