@@ -6,9 +6,11 @@ public record NewEntrepreneurDTO(
         @NotEmpty(message = "il nome è un campo obbligatorio!")
         @Size(min = 3, max=30, message = "Il nome deve essere compreso tra 3 e 30 caratteri")
         String name,
-        @NotEmpty(message = "la partita iva è un campo obbligatorio!")
-        @Size(min = 11, max=11, message = "La partita iva deve essere lunga esattamente 11 cifre")
-        Long partita_iva,
+
+        @NotNull(message = "la partita iva è un campo obbligatorio!")
+        @Digits(integer = 11, fraction = 0, message = "La partita iva deve essere lunga esattamente 11 cifre")
+        Long partitaIva,
+
         @NotEmpty(message = "la mail è un campo obbligatorio!")
         @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "L'email inserita non è valida")
         String email,
@@ -25,6 +27,10 @@ public record NewEntrepreneurDTO(
         @NotEmpty(message = "il cognome è un campo obbligatorio!")
         @Size(min = 3, max=30, message = "Il nome deve essere compreso tra 3 e 30 caratteri")
         String surname,
+
+        @NotEmpty(message = "il cognome è un campo obbligatorio!")
+        @Size(min = 3, max=30, message = "Il nome deve essere compreso tra 3 e 30 caratteri")
+        String company_name,
 
         @NotEmpty(message = "l'indirizzo è obbligatorio")
         String address

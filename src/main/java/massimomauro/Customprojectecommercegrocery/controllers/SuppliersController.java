@@ -3,6 +3,7 @@ package massimomauro.Customprojectecommercegrocery.controllers;
 import massimomauro.Customprojectecommercegrocery.entities.Entrepreneur;
 import massimomauro.Customprojectecommercegrocery.entities.Supplier;
 import massimomauro.Customprojectecommercegrocery.services.EntrepreneursService;
+import massimomauro.Customprojectecommercegrocery.services.SuppliersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ import java.util.UUID;
 @RequestMapping("/suppliers")
 public class SuppliersController {
     @Autowired
-    private EntrepreneursService entrepreneursService;
+    private SuppliersService suppliersService;
 
 
     @GetMapping("")
@@ -27,7 +28,7 @@ public class SuppliersController {
                                      @RequestParam(defaultValue = "10")int size,
                                      @RequestParam(defaultValue = "id")String order,
                                      @RequestParam(defaultValue = "true")boolean ascending){
-        return entrepreneursService.getSuppliers(page , size , order , ascending);
+        return suppliersService.getSuppliers(page , size , order , ascending);
     }
 
    /* @GetMapping("/{id}")

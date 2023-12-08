@@ -1,5 +1,6 @@
 package massimomauro.Customprojectecommercegrocery.services;
 
+import massimomauro.Customprojectecommercegrocery.entities.Customer;
 import massimomauro.Customprojectecommercegrocery.entities.Entrepreneur;
 import massimomauro.Customprojectecommercegrocery.entities.Supplier;
 import massimomauro.Customprojectecommercegrocery.entities.enums.Role;
@@ -56,11 +57,43 @@ public class AuthService {
         newUser.setSurname(body.surname());
         newUser.setPassword(bcrypt.encode(body.password()));
         newUser.setEmail(body.email());
+        newUser.setPartita_iva(body.partitaIva());
+        newUser.setTelephone(body.telephone());
+        newUser.setCompany_name(body.company_name());
+        newUser.setAddress(body.address());
+
         newUser.setAvatar("http://ui-avatars.com/api/?name=" + body.surname().trim().replace(" " , "") + "+" + body.name().trim().replace(" " , ""));
 
         newUser.setRole(Role.SUPPLIER);
 
         Supplier savedUser = entrepreneursRepository.save(newUser);
+
+        return savedUser;
+    }
+
+    public Customer registerCustomer(NewEntrepreneurDTO body) throws IOException {
+
+        // verifico se l'email è già utilizzata
+        entrepreneursRepository.findByEmail(body.email()).ifPresent( user -> {
+            throw new BadRequestException("L'email " + user.getEmail() + " è già utilizzata!");
+        });
+
+        Customer newUser = new Customer();
+
+        newUser.setName(body.name());
+        newUser.setSurname(body.surname());
+        newUser.setPassword(bcrypt.encode(body.password()));
+        newUser.setEmail(body.email());
+        newUser.setPartita_iva(body.partitaIva());
+        newUser.setTelephone(body.telephone());
+        newUser.setCompany_name(body.company_name());
+        newUser.setAddress(body.address());
+
+        newUser.setAvatar("http://ui-avatars.com/api/?name=" + body.surname().trim().replace(" " , "") + "+" + body.name().trim().replace(" " , ""));
+
+        newUser.setRole(Role.CUSTOMER);
+
+        Customer savedUser = entrepreneursRepository.save(newUser);
 
         return savedUser;
     }

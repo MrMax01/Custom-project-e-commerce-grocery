@@ -1,6 +1,6 @@
 package massimomauro.Customprojectecommercegrocery.controllers;
 
-import massimomauro.Customprojectecommercegrocery.entities.Entrepreneur;
+import massimomauro.Customprojectecommercegrocery.entities.Customer;
 import massimomauro.Customprojectecommercegrocery.entities.Supplier;
 import massimomauro.Customprojectecommercegrocery.exceptions.BadRequestException;
 import massimomauro.Customprojectecommercegrocery.payloads.NewEntrepreneurDTO;
@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/auth")
-public class AuthController {
+@RequestMapping("/register")
+public class RegisterController {
     @Autowired
     AuthService authService;
-    @PostMapping("/register/supplier")
+    @PostMapping("/supplier")
     @ResponseStatus(HttpStatus.CREATED)
     public Supplier saveSupplier(@RequestBody @Validated NewEntrepreneurDTO body , BindingResult validation){
         if(validation.hasErrors()){
@@ -26,6 +26,22 @@ public class AuthController {
         } else {
             try {
                 return authService.registerSupplier(body);
+            }catch (IOException e){
+                System.err.println(e.getMessage());
+                return null;
+            }
+
+        }
+    }
+
+    @PostMapping("/customer")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Customer saveCustomer(@RequestBody @Validated NewEntrepreneurDTO body , BindingResult validation){
+        if(validation.hasErrors()){
+            throw new BadRequestException(validation.getAllErrors());
+        } else {
+            try {
+                return authService.registerCustomer(body);
             }catch (IOException e){
                 System.err.println(e.getMessage());
                 return null;

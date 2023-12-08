@@ -18,17 +18,7 @@ import java.util.UUID;
 public class EntrepreneursService {
     @Autowired
     EntrepreneursRepository entrepreneursRepository;
-    @Autowired
-    SuppliersRepository suppliersRepository;
-    public Page<Supplier> getSuppliers(int page, int size, String orderBy , boolean ascending ) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
 
-
-        if (!ascending) pageable  = PageRequest.of(page, size, Sort.by(orderBy).descending());
-
-
-        return suppliersRepository.findAll(pageable);
-    }
     public Entrepreneur findById(UUID id) throws NotFoundException {
         return entrepreneursRepository.findById(id).orElseThrow( ()  -> new NotFoundException(id));
     }
