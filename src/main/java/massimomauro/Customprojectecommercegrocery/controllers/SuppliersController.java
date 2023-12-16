@@ -31,25 +31,25 @@ public class SuppliersController {
         return suppliersService.getSuppliers(page , size , order , ascending);
     }
 
-   /* @GetMapping("/{id}")
-    public User findById(@PathVariable UUID id){
-        return usersService.findById(id);
+   @GetMapping("/{id}")
+    public Supplier findById(@PathVariable UUID id){
+        return suppliersService.findById(id);
     }
-*/
-/*
+
+
     @GetMapping("/me")
     public UserDetails getProfile(@AuthenticationPrincipal UserDetails currentUser){
         return currentUser;
     };
-*/
 
-/*
-    @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public UserDetails getProfile(@PathVariable UUID id, @RequestBody User body){
-        return usersService.findByIdAndUpdate(id , body);
+
+
+    @PutMapping("/me")
+    @PreAuthorize("hasAuthority('SUPPLIER')")
+    public UserDetails getProfile(@PathVariable UUID id, @RequestBody Supplier body){
+        return suppliersService.findByIdAndUpdate(id , body);
     }
-*/
+
 /*
     @PatchMapping("/upload/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
