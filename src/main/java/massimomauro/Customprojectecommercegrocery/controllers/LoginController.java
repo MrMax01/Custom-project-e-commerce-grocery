@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
     @Autowired
     AuthService authService;
-    @PostMapping("/login")
+    @PostMapping("")
     public EntrepreneurLoginSuccessDTO login(@RequestBody EntrepreneurLoginDTO body){
 
         return new EntrepreneurLoginSuccessDTO(authService.authenticateUser(body));

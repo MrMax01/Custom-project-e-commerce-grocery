@@ -22,6 +22,7 @@ public abstract class Entrepreneur implements UserDetails {
     private UUID id;
     private String name;
     private String surname;
+    private String username;
     private String email;
     private String password;
     private String company_name;
@@ -36,26 +37,26 @@ public abstract class Entrepreneur implements UserDetails {
     }
     @Override
     public String getUsername() {
-        return null;
+        return this.email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

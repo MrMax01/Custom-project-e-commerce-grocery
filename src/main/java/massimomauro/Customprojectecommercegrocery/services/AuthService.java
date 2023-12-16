@@ -58,6 +58,7 @@ public class AuthService {
         newUser.setPassword(bcrypt.encode(body.password()));
         newUser.setEmail(body.email());
         newUser.setPartita_iva(body.partitaIva());
+        newUser.setUsername(body.name() + "_" + body.surname());
         newUser.setTelephone(body.telephone());
         newUser.setCompany_name(body.company_name());
         newUser.setAddress(body.address());
@@ -84,6 +85,7 @@ public class AuthService {
         newUser.setSurname(body.surname());
         newUser.setPassword(bcrypt.encode(body.password()));
         newUser.setEmail(body.email());
+        newUser.setUsername(body.name() + "_" + body.surname());
         newUser.setPartita_iva(body.partitaIva());
         newUser.setTelephone(body.telephone());
         newUser.setCompany_name(body.company_name());

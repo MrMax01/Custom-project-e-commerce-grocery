@@ -37,18 +37,7 @@ public class SuppliersController {
     }
 
 
-    @GetMapping("/me")
-    public UserDetails getProfile(@AuthenticationPrincipal UserDetails currentUser){
-        return currentUser;
-    };
 
-
-
-    @PutMapping("/me")
-    @PreAuthorize("hasAuthority('SUPPLIER')")
-    public UserDetails getProfile(@PathVariable UUID id, @RequestBody Supplier body){
-        return suppliersService.findByIdAndUpdate(id , body);
-    }
 
 /*
     @PatchMapping("/upload/{id}")

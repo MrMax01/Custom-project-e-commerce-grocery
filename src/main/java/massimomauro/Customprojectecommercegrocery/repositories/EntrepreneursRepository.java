@@ -8,5 +8,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface EntrepreneursRepository extends JpaRepository<Entrepreneur, UUID> {
-    Optional<Customer> findByEmail(String email);
+    Optional<Entrepreneur> findByEmail(String email);
 }
