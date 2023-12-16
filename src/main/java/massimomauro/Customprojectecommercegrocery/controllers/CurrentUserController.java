@@ -15,6 +15,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -53,4 +54,12 @@ public class CurrentUserController {
     public Product saveProduct(@AuthenticationPrincipal UserDetails currentUser, @RequestBody NewProductDTO body){
         return productsService.saveProduct(body, currentUser.getUsername());
     }
+    /*
+    @GetMapping("/product")
+    public List<Product> saveProduct(@AuthenticationPrincipal UserDetails currentUser){
+        return productsService.getProductsBySupplier(currentUser.getUsername());
+    }
+    */
+
+
 }

@@ -37,6 +37,8 @@ public class ProductsService {
     @Autowired
     SuppliersService suppliersService;
     @Autowired
+    SuppliersRepository suppliersRepository;
+    @Autowired
     private Cloudinary cloudinary;
 
     public Page<Product> getProducts(int page, int size, String orderBy , boolean ascending ) {
@@ -77,6 +79,13 @@ public class ProductsService {
         newProduct.setQuantity(body.quantity());
         newProduct.setSupplier(suppliersService.findByEmail(email));
         newProduct.setProduct_status(ProductStatus.DISPONIBILE);
-        return newProduct;
+
+        return productsRepository.save(newProduct);
     }
+    /*
+    public List<Product> getProductsBySupplier(String ownerEmail) {
+        return productsRepository.findBySupplier(ownerEmail);
+    }
+
+     */
 }
