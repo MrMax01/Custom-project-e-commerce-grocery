@@ -39,7 +39,7 @@ public class ProductsService {
     @Autowired
     private Cloudinary cloudinary;
 
-    public Page<Product> getSuppliers(int page, int size, String orderBy , boolean ascending ) {
+    public Page<Product> getProducts(int page, int size, String orderBy , boolean ascending ) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
 
 
