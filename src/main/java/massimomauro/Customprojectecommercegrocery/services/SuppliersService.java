@@ -5,6 +5,7 @@ import massimomauro.Customprojectecommercegrocery.entities.Supplier;
 import massimomauro.Customprojectecommercegrocery.exceptions.NotFoundException;
 import massimomauro.Customprojectecommercegrocery.repositories.EntrepreneursRepository;
 import massimomauro.Customprojectecommercegrocery.repositories.SuppliersRepository;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,6 +34,9 @@ public class SuppliersService {
 
     public Supplier findById(UUID id) throws NotFoundException {
         return suppliersRepository.findById(id).orElseThrow( ()  -> new NotFoundException(id));
+    }
+    public Supplier findByEmail(String email) throws NotFoundException{
+        return suppliersRepository.findByEmail(email).orElseThrow(()->new NotFoundException(email) );
     }
 
     /*
