@@ -22,7 +22,7 @@ public abstract class Entrepreneur implements UserDetails {
     private UUID id;
     private String name;
     private String surname;
-    private String username;
+
     private String email;
     private String password;
     private String company_name;
