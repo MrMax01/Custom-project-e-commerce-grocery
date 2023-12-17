@@ -1,5 +1,7 @@
 package massimomauro.Customprojectecommercegrocery.services;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import massimomauro.Customprojectecommercegrocery.entities.Entrepreneur;
 import massimomauro.Customprojectecommercegrocery.entities.Supplier;
 import massimomauro.Customprojectecommercegrocery.exceptions.NotFoundException;
@@ -13,13 +15,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.UUID;
 
 @Service
 public class EntrepreneursService {
     @Autowired
     EntrepreneursRepository entrepreneursRepository;
+    @Autowired
+    Cloudinary cloudinary;
 
     public Entrepreneur findById(UUID id) throws NotFoundException {
         return entrepreneursRepository.findById(id).orElseThrow( ()  -> new NotFoundException(id));
@@ -47,6 +53,14 @@ public class EntrepreneursService {
 
 
         return entrepreneursRepository.save(found);
+    }
+
+    public String imageUpload(String email, MultipartFile file) throws NotFoundException, IOException {
+        Entrepreneur found = this.findByEmail(email);
+        String img = (String) cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap()).get("url");
+        found.setAvatar(img);
+        entrepreneursRepository.save(found);
+        return found.getAvatar();
     }
 
 }

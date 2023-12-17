@@ -11,10 +11,13 @@ import massimomauro.Customprojectecommercegrocery.payloads.NewEntrepreneurDTO;
 import massimomauro.Customprojectecommercegrocery.repositories.EntrepreneursRepository;
 import massimomauro.Customprojectecommercegrocery.security.JWTTools;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
+import java.util.UUID;
 
 @Service
 public class AuthService {
@@ -29,6 +32,8 @@ public class AuthService {
 
     @Autowired
     private EntrepreneursRepository entrepreneursRepository;
+    @Autowired
+    ProductsService productsService;
 
     public String authenticateUser(EntrepreneurLoginDTO body){
         // 1. Verifichiamo che l'email dell'utente sia nel db
@@ -98,5 +103,15 @@ public class AuthService {
         Customer savedUser = entrepreneursRepository.save(newUser);
 
         return savedUser;
+    }
+
+    public void checkProductOwner(UUID productId) {
+        // Otteniamo l'email dell'utente autenticato
+        String supplierEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println(supplierEmail);
+        // Controlliamo se il fornitore associato al prodotto è l'utente autenticato
+        if (!productsService.isProductOwnedBySupplier(productId, supplierEmail)) {
+            throw new UnauthorizedException("You do not have permission to delete this product.");
+        }
     }
 }

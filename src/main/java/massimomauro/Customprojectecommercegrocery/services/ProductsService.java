@@ -57,6 +57,7 @@ public class ProductsService {
 
     public void findProductByUUIDAndDelete(UUID uuid) throws NotFoundException {
         Product foundProduct = this.findById(uuid);
+
         productsRepository.delete(foundProduct);
     }
     public String imageUpload(UUID id, MultipartFile file) throws NotFoundException, IOException {
@@ -86,10 +87,8 @@ public class ProductsService {
     public List<Product> getProductsBySupplier(UUID supplierId) {
         return productsRepository.findBySupplierId(supplierId);
     }
-    /*
-    public List<Product> getProductsBySupplier(String ownerEmail) {
-        return productsRepository.findBySupplier(ownerEmail);
+    public boolean isProductOwnedBySupplier(UUID productId, String supplierEmail) {
+        // Verifica se il prodotto esiste e se il fornitore associato è quello autenticato
+        return productsRepository.findByIdAndSupplierEmail(productId, supplierEmail).isPresent();
     }
-
-     */
 }

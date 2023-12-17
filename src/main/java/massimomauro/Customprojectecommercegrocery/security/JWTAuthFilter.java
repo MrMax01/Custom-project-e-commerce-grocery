@@ -65,6 +65,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
         // Ad es tutte le richieste al controller /auth/** non devono essere filtrate
         return new AntPathMatcher().match("/login", request.getServletPath())
                 || new AntPathMatcher().match("/register/**", request.getServletPath())
-                || new AntPathMatcher().match("/products", request.getServletPath());
+                || new AntPathMatcher().match("/products/**", request.getServletPath()) && request.getMethod().equals("GET")
+                || new AntPathMatcher().match("/me/products/**", request.getServletPath());
     }
 }
