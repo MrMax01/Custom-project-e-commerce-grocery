@@ -63,6 +63,8 @@ public class JWTAuthFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         // Questo metodo serve per specificare quando il filtro JWTAuthFilter non debba entrare in azione
         // Ad es tutte le richieste al controller /auth/** non devono essere filtrate
-        return new AntPathMatcher().match("/login", request.getServletPath()) || new AntPathMatcher().match("/register/**", request.getServletPath()) ;
+        return new AntPathMatcher().match("/login", request.getServletPath())
+                || new AntPathMatcher().match("/register/**", request.getServletPath())
+                || new AntPathMatcher().match("/products", request.getServletPath());
     }
 }

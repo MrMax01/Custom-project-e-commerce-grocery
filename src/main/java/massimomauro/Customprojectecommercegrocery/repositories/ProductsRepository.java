@@ -8,5 +8,6 @@ import java.util.List;
 import java.util.UUID;
 @Repository
 public interface ProductsRepository extends JpaRepository<Product, UUID> {
+    List<Product> findBySupplierId(UUID supplierId);
 
 }

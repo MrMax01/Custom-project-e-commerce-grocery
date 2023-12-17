@@ -82,6 +82,10 @@ public class ProductsService {
 
         return productsRepository.save(newProduct);
     }
+
+    public List<Product> getProductsBySupplier(UUID supplierId) {
+        return productsRepository.findBySupplierId(supplierId);
+    }
     /*
     public List<Product> getProductsBySupplier(String ownerEmail) {
         return productsRepository.findBySupplier(ownerEmail);
