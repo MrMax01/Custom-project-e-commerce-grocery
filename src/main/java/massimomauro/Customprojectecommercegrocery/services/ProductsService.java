@@ -13,6 +13,7 @@ import massimomauro.Customprojectecommercegrocery.repositories.ProductsRepositor
 import massimomauro.Customprojectecommercegrocery.repositories.SuppliersRepository;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -41,11 +42,17 @@ public class ProductsService {
     @Autowired
     private Cloudinary cloudinary;
 
-    public Page<Product> getProducts(int page, int size, String orderBy , boolean ascending ) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
+    public Page<Product> getProducts(int page, int size, String orderBy , boolean ascending,  boolean orderByDate ) {
+        Pageable pageable;
 
-
-        if (!ascending) pageable  = PageRequest.of(page, size, Sort.by(orderBy).descending());
+        if (orderByDate) {
+            pageable = PageRequest.of(page, size, Sort.by("publicatedAt").descending());
+        } else {
+            pageable = PageRequest.of(page, size, Sort.by(orderBy));
+            if (!ascending) {
+                pageable = PageRequest.of(page, size, Sort.by(orderBy).descending());
+            }
+        }
 
 
         return productsRepository.findAll(pageable);
@@ -72,12 +79,14 @@ public class ProductsService {
 
 
         Product newProduct = new Product();
+        LocalDate today = LocalDate.now();
 
         newProduct.setName(body.name());
         newProduct.setCategory(body.category());
         newProduct.setDescription(body.description());
         newProduct.setUnit_price(body.unit_price());
         newProduct.setQuantity(body.quantity());
+        newProduct.setPublicatedAt(today);
         newProduct.setSupplier(suppliersService.findByEmail(email));
         newProduct.setProduct_status(ProductStatus.DISPONIBILE);
 

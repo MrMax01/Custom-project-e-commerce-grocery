@@ -27,8 +27,9 @@ public class ProductsController {
     public Page<Product> getAllProduct(@RequestParam(defaultValue = "0")int page ,
                                     @RequestParam(defaultValue = "10")int size,
                                     @RequestParam(defaultValue = "id")String order,
-                                    @RequestParam(defaultValue = "true")boolean ascending){
-        return productsService.getProducts(page , size , order , ascending);
+                                    @RequestParam(defaultValue = "true")boolean ascending,
+                                       @RequestParam(defaultValue ="false") boolean orderByDate){
+        return productsService.getProducts(page , size , order , ascending,  orderByDate);
     }
     @GetMapping("/{id}")
     public Product findById(@PathVariable UUID id) {

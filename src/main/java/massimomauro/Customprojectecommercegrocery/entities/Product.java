@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import massimomauro.Customprojectecommercegrocery.entities.enums.ProductStatus;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,6 +22,7 @@ public class Product {
     private String description;
     private String photo;
     private String quality;//come posso attestare la qualità del prodotto
+    private LocalDate publicatedAt;
     private  double unit_price;
     private double quantity;
     @Enumerated(EnumType.STRING)
