@@ -7,10 +7,12 @@ import massimomauro.Customprojectecommercegrocery.exceptions.NotFoundException;
 import massimomauro.Customprojectecommercegrocery.exceptions.UnauthorizedException;
 import massimomauro.Customprojectecommercegrocery.payloads.AddToCartDto;
 import massimomauro.Customprojectecommercegrocery.repositories.CartRepository;
+import massimomauro.Customprojectecommercegrocery.repositories.CustomersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -22,13 +24,15 @@ public class CartService {
 
     @Autowired
     CartRepository cartRepository;
+    @Autowired
+    CustomersService customersService;
 
-    public void addToCart(AddToCartDto addToCartDto, Customer customer) {
+    public void addToCart(AddToCartDto addToCartDto, String email) {
 
         LocalDate today= LocalDate.now();
         // validate if the product id is valid
         Product product = productsService.findById(addToCartDto.productId());
-
+        Customer customer = customersService.findByEmail(email);
         Cart cart = new Cart();
         cart.setProduct(product);
         cart.setCustomer(customer);
@@ -43,7 +47,7 @@ public class CartService {
 
 
 
-    public void deleteCartItem(UUID cartItemId, Customer customer) {
+    public void deleteCartItem(UUID cartItemId, String email) {
         // the item id belongs to user
 
         Optional<Cart> optionalCart = cartRepository.findById(cartItemId);
@@ -51,7 +55,7 @@ public class CartService {
         if (optionalCart.isEmpty()) {
             throw new NotFoundException("cart item id is invalid: " + cartItemId);
         }
-
+        Customer customer = customersService.findByEmail(email);
         Cart cart = optionalCart.get();
 
         if (cart.getCustomer() != customer) {
@@ -62,4 +66,5 @@ public class CartService {
 
 
     }
+
 }

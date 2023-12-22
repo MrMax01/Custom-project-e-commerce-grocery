@@ -17,7 +17,8 @@ public class Customer extends Entrepreneur {
 
 
     @OneToMany(mappedBy = "customer")
-    private List<Order> orders;
+    private List<Cart> carts;
+
 
 
 }

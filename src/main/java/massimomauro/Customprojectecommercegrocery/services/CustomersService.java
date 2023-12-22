@@ -1,7 +1,9 @@
 package massimomauro.Customprojectecommercegrocery.services;
 
 import massimomauro.Customprojectecommercegrocery.entities.Customer;
+import massimomauro.Customprojectecommercegrocery.entities.Entrepreneur;
 import massimomauro.Customprojectecommercegrocery.entities.Supplier;
+import massimomauro.Customprojectecommercegrocery.exceptions.NotFoundException;
 import massimomauro.Customprojectecommercegrocery.repositories.CustomersRepository;
 import massimomauro.Customprojectecommercegrocery.repositories.SuppliersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,4 +26,11 @@ public class CustomersService {
 
         return customersRepository.findAll(pageable);
     }
+
+    public Customer findByEmail(String email){
+        return customersRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("Utente con email " + email + " non trovato!"));
+    }
+
+
 }
