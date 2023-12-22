@@ -20,7 +20,7 @@ import java.util.UUID;
 public class CartController {
 
     @Autowired
-    private CartService cartService;
+     CartService cartService;
 
 
 
@@ -43,9 +43,12 @@ public class CartController {
         cartService.deleteCartItem(itemId, currentUser.getUsername());
 
     }
+    /*
     @GetMapping("/customer/{supplierId}")
     public List<Product> getProductsBySupplier(@PathVariable UUID supplierId) {
         return cartService.getProductsByCustomer(supplierId);
     }
+
+     */
 
 }

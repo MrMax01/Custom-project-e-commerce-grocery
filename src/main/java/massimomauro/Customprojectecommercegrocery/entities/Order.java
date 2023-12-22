@@ -1,7 +1,7 @@
 package massimomauro.Customprojectecommercegrocery.entities;
 
 import jakarta.persistence.*;
-import massimomauro.Customprojectecommercegrocery.entities.OrderDetail;
+
 import massimomauro.Customprojectecommercegrocery.entities.enums.OrderStatus;
 
 import java.time.LocalDate;
@@ -16,8 +16,11 @@ public class Order {
     private UUID id;
     private OrderStatus orderStatus;
     private LocalDate created_at;
+    /*
     @OneToMany(mappedBy = "order")
     private List<OrderDetail> OrderDetails;
+
+     */
     @ManyToOne
     @JoinColumn(name="customer_id")
     private Customer customer;

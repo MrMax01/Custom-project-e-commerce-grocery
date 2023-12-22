@@ -1,10 +1,11 @@
+/*
 package massimomauro.Customprojectecommercegrocery.controllers;
 
 import massimomauro.Customprojectecommercegrocery.entities.Order;
-import massimomauro.Customprojectecommercegrocery.entities.OrderDetail;
+
 import massimomauro.Customprojectecommercegrocery.entities.Product;
 import massimomauro.Customprojectecommercegrocery.payloads.NewProductDTO;
-import massimomauro.Customprojectecommercegrocery.services.OrdersService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,14 +21,20 @@ public class OrdersController {
     @Autowired
     OrdersService ordersService;
     //@PreAuthorize("hasAuthority('CUSTOMER')")
+
     @GetMapping("/customer/{customerId}")
     public List<Order> getProductsBySupplier(@PathVariable UUID customerId) {
         return ordersService.getOrdersByCustomer(customerId);
     }
+
 
     @PostMapping("/details")
     @PreAuthorize("hasAuthority('CUSTOMER')")
     public OrderDetail saveProduct(@AuthenticationPrincipal UserDetails currentUser, @RequestBody NewProductDTO body){
         return ordersService.saveOrder(body, currentUser.getUsername());
     }
+
+
 }
+
+ */
