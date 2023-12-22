@@ -63,12 +63,15 @@ public class CurrentUserController {
     }
 
 
+
     /*
     @GetMapping("/product")
     public List<Product> saveProduct(@AuthenticationPrincipal UserDetails currentUser){
         return productsService.getProductsBySupplier(currentUser.getUsername());
     }
     */
+
+
 
 
 }

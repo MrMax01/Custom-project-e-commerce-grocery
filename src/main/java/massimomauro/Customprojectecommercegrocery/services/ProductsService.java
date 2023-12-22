@@ -87,11 +87,13 @@ public class ProductsService {
         newProduct.setUnit_price(body.unit_price());
         newProduct.setQuantity(body.quantity());
         newProduct.setPublicatedAt(today);
+        newProduct.setPhoto("http://ui-avatars.com/api/?name=" + body.name().trim().replace(" " , "") + "+" + body.name().trim().replace(" " , ""));
         newProduct.setSupplier(suppliersService.findByEmail(email));
         newProduct.setProduct_status(ProductStatus.DISPONIBILE);
 
         return productsRepository.save(newProduct);
     }
+
 
     public List<Product> getProductsBySupplier(UUID supplierId) {
         return productsRepository.findBySupplierId(supplierId);

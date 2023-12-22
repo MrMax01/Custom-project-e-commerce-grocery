@@ -46,7 +46,9 @@ public class EntrepreneursService {
         found.setPartita_iva(body.partitaIva());
         found.setTelephone(body.telephone());
         found.setCompany_name(body.company_name());
-        found.setAddress(body.address());
+        found.setRegion(body.region());
+        found.setCity(body.city());
+        found.setVia(body.via());
         if (found.getAvatar().equals("http://ui-avatars.com/api/?name="+ found.getSurname().trim().replace(" " , "") + "+" + found.getName().trim().replace(" " , ""))){
             found.setAvatar("http://ui-avatars.com/api/?name=" + found.getSurname().trim().replace(" " , "") + "+" + body.name().trim().replace(" ", ""));
         }

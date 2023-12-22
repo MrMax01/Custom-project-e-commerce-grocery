@@ -3,6 +3,7 @@ package massimomauro.Customprojectecommercegrocery.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import massimomauro.Customprojectecommercegrocery.entities.enums.ProductCategory;
 import massimomauro.Customprojectecommercegrocery.entities.enums.ProductStatus;
 
 import java.time.LocalDate;
@@ -18,7 +19,7 @@ public class Product {
     @GeneratedValue
     private UUID id;
     private String name;
-    private String category;//da vedere se metterlo come ENUM o no
+    private ProductCategory category;//da vedere se metterlo come ENUM o no
     private String description;
     private String photo;
     private String quality;//come posso attestare la qualità del prodotto

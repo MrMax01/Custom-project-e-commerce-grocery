@@ -27,7 +27,9 @@ public abstract class Entrepreneur implements UserDetails {
     private String password;
     private String company_name;
     private long telephone;
-    private String address;//prendere in considerazione di creare un oggetto address
+    private String region;//prendere in considerazione di creare un oggetto address
+    private String city;
+    private String via;
     private String avatar;
     private long partita_iva;
     private Role role;

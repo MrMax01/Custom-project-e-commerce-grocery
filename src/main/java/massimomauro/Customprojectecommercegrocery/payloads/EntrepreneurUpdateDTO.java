@@ -28,5 +28,10 @@ public record EntrepreneurUpdateDTO(@NotEmpty(message = "il nome è un campo obb
                                     String company_name,
 
                                     @NotEmpty(message = "l'indirizzo è obbligatorio")
-                                    String address) {
+                                    String region,
+
+                                    @NotEmpty(message = "l'indirizzo è obbligatorio")
+                                    String city,
+                                    @NotEmpty(message = "l'indirizzo è obbligatorio")
+                                    String via) {
 }

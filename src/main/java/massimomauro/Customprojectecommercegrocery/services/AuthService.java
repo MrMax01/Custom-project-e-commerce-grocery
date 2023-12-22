@@ -66,8 +66,9 @@ public class AuthService {
 
         newUser.setTelephone(body.telephone());
         newUser.setCompany_name(body.company_name());
-        newUser.setAddress(body.address());
-
+        newUser.setRegion(body.region());
+        newUser.setCity(body.city());
+        newUser.setVia(body.via());
         newUser.setAvatar("http://ui-avatars.com/api/?name=" + body.surname().trim().replace(" " , "") + "+" + body.name().trim().replace(" " , ""));
 
         newUser.setRole(Role.SUPPLIER);
@@ -94,7 +95,9 @@ public class AuthService {
         newUser.setPartita_iva(body.partitaIva());
         newUser.setTelephone(body.telephone());
         newUser.setCompany_name(body.company_name());
-        newUser.setAddress(body.address());
+        newUser.setRegion(body.region());
+        newUser.setCity(body.city());
+        newUser.setVia(body.via());
 
         newUser.setAvatar("http://ui-avatars.com/api/?name=" + body.surname().trim().replace(" " , "") + "+" + body.name().trim().replace(" " , ""));
 
