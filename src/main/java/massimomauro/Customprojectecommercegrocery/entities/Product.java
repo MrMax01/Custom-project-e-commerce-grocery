@@ -1,5 +1,7 @@
 package massimomauro.Customprojectecommercegrocery.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,10 +40,19 @@ public class Product {
  */
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Cart> cart;
+    @JsonIgnore
+    private List<Cart> carts;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Order> orders;
+
 
     @ManyToOne
     @JoinColumn(name = "supplier_id")
+    @JsonIgnore
     private Supplier supplier;
+
+
 
 }

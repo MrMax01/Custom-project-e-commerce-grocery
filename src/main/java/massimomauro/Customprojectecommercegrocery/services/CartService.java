@@ -6,6 +6,7 @@ import massimomauro.Customprojectecommercegrocery.entities.Product;
 import massimomauro.Customprojectecommercegrocery.exceptions.NotFoundException;
 import massimomauro.Customprojectecommercegrocery.exceptions.UnauthorizedException;
 import massimomauro.Customprojectecommercegrocery.payloads.AddToCartDto;
+import massimomauro.Customprojectecommercegrocery.payloads.CartUpdateQuantityDTO;
 import massimomauro.Customprojectecommercegrocery.repositories.CartRepository;
 import massimomauro.Customprojectecommercegrocery.repositories.CustomersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class CartService {
     @Autowired
     CustomersService customersService;
 
-    public void addToCart(AddToCartDto addToCartDto, String email) {
+    public Cart addToCart(AddToCartDto addToCartDto, String email) {
 
         LocalDate today= LocalDate.now();
         // validate if the product id is valid
@@ -41,7 +42,8 @@ public class CartService {
 
 
         // save the cart
-        cartRepository.save(cart);
+        return cartRepository.save(cart);
+
 
     }
 
@@ -50,14 +52,17 @@ public class CartService {
     public void deleteCartItem(UUID cartItemId, String email) {
         // the item id belongs to user
 
-        Optional<Cart> optionalCart = cartRepository.findById(cartItemId);
-
+        Cart cart = cartRepository.findById(cartItemId).orElseThrow( ()  -> new NotFoundException(cartItemId));
+/*
         if (optionalCart.isEmpty()) {
             throw new NotFoundException("cart item id is invalid: " + cartItemId);
         }
-        Customer customer = customersService.findByEmail(email);
-        Cart cart = optionalCart.get();
+        */
 
+        Customer customer = customersService.findByEmail(email);
+ /*
+        Cart cart = optionalCart.get();
+*/
         if (cart.getCustomer() != customer) {
             throw  new UnauthorizedException("cart item does not belong to user: " +cartItemId);
         }
@@ -65,6 +70,30 @@ public class CartService {
         cartRepository.delete(cart);
 
 
+    }
+    public Cart updateCart (UUID cartItemId, CartUpdateQuantityDTO body, String email){
+        Cart cart = cartRepository.findById(cartItemId).orElseThrow( ()  -> new NotFoundException(cartItemId));
+/*
+        if (optionalCart.isEmpty()) {
+            throw new NotFoundException("cart item id is invalid: " + cartItemId);
+        }
+        */
+
+        Customer customer = customersService.findByEmail(email);
+ /*
+        Cart cart = optionalCart.get();
+*/
+        if (cart.getCustomer() != customer) {
+            throw  new UnauthorizedException("cart item does not belong to user: " +cartItemId);
+        }else{
+            cart.setQuantity(body.quantity());
+
+            return cartRepository.save(cart);
+        }
+    }
+    public List<Cart> getCartList(String email){
+        Customer me= customersService.findByEmail(email);
+        return cartRepository.findAllByCustomer(me);
     }
 
 }

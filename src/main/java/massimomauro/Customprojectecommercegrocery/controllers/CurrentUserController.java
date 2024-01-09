@@ -5,6 +5,7 @@ import massimomauro.Customprojectecommercegrocery.entities.Product;
 import massimomauro.Customprojectecommercegrocery.entities.Supplier;
 import massimomauro.Customprojectecommercegrocery.payloads.EntrepreneurUpdateDTO;
 import massimomauro.Customprojectecommercegrocery.payloads.NewProductDTO;
+import massimomauro.Customprojectecommercegrocery.payloads.UpdateProductDTO;
 import massimomauro.Customprojectecommercegrocery.services.CustomersService;
 import massimomauro.Customprojectecommercegrocery.services.EntrepreneursService;
 import massimomauro.Customprojectecommercegrocery.services.ProductsService;
@@ -55,6 +56,17 @@ public class CurrentUserController {
     @PreAuthorize("hasAuthority('SUPPLIER')")
     public Product saveProduct(@AuthenticationPrincipal UserDetails currentUser, @RequestBody NewProductDTO body){
         return productsService.saveProduct(body, currentUser.getUsername());
+    }
+    @PutMapping("/products/{productId}")
+    @PreAuthorize("hasAuthority('SUPPLIER')")
+    public Product updateProduct(@AuthenticationPrincipal UserDetails currentUser, @RequestBody UpdateProductDTO body, @PathVariable("productId") UUID itemId){
+        return productsService.findProductByUUIDAndUpdate(body, itemId, currentUser.getUsername());
+    }
+    @PostMapping("/products/upload/{id}")
+    @PreAuthorize("hasAuthority('SUPPLIER')")
+    public String uploadPicture(@AuthenticationPrincipal UserDetails currentUser, @PathVariable UUID id, @RequestParam("avatar")MultipartFile file) throws IOException {
+
+        return productsService.imageUpload(id, file, currentUser.getUsername());
     }
 
     @PatchMapping("/upload/avatar")

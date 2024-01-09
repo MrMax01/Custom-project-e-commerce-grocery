@@ -10,14 +10,15 @@ import java.util.UUID;
 
 @Entity
 @Table(name="customers")
-@Getter
-@Setter
+
 
 public class Customer extends Entrepreneur {
 
 
     @OneToMany(mappedBy = "customer")
     private List<Cart> carts;
+    @OneToMany(mappedBy = "customer")
+    private List<Order> orders;
 
 
 

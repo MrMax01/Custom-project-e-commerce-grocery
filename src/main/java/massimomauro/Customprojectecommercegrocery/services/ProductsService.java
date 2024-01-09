@@ -5,10 +5,12 @@ import com.cloudinary.utils.ObjectUtils;
 import massimomauro.Customprojectecommercegrocery.entities.Customer;
 import massimomauro.Customprojectecommercegrocery.entities.Product;
 import massimomauro.Customprojectecommercegrocery.entities.Supplier;
+import massimomauro.Customprojectecommercegrocery.entities.enums.ProductCategory;
 import massimomauro.Customprojectecommercegrocery.entities.enums.ProductStatus;
 import massimomauro.Customprojectecommercegrocery.exceptions.BadRequestException;
 import massimomauro.Customprojectecommercegrocery.exceptions.NotFoundException;
 import massimomauro.Customprojectecommercegrocery.payloads.NewProductDTO;
+import massimomauro.Customprojectecommercegrocery.payloads.UpdateProductDTO;
 import massimomauro.Customprojectecommercegrocery.repositories.ProductsRepository;
 import massimomauro.Customprojectecommercegrocery.repositories.SuppliersRepository;
 import org.apache.catalina.User;
@@ -42,7 +44,7 @@ public class ProductsService {
     @Autowired
     private Cloudinary cloudinary;
 
-    public Page<Product> getProducts(int page, int size, String orderBy , boolean ascending,  boolean orderByDate ) {
+    public Page<Product> getProducts(int page, int size, String orderBy , boolean ascending, boolean orderByDate, ProductCategory category) {
         Pageable pageable;
 
         if (orderByDate) {
@@ -53,9 +55,12 @@ public class ProductsService {
                 pageable = PageRequest.of(page, size, Sort.by(orderBy).descending());
             }
         }
+        if (category != null) {
+            return productsRepository.findByCategory(category, pageable);
+        } else {
+            return productsRepository.findAll(pageable);
+        }
 
-
-        return productsRepository.findAll(pageable);
     }
     public Product findById(UUID uuid) throws NotFoundException {
 
@@ -67,8 +72,12 @@ public class ProductsService {
 
         productsRepository.delete(foundProduct);
     }
-    public String imageUpload(UUID id, MultipartFile file) throws NotFoundException, IOException {
+    public String imageUpload(UUID id, MultipartFile file, String email) throws NotFoundException, IOException {
+
         Product found = this.findById(id);
+        if(!isProductOwnedBySupplier(id, email)){
+            return null;
+        }
         String img = (String) cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap()).get("url");
         found.setPhoto(img);
         productsRepository.save(found);
@@ -92,6 +101,19 @@ public class ProductsService {
         newProduct.setProduct_status(ProductStatus.DISPONIBILE);
 
         return productsRepository.save(newProduct);
+    }
+    public Product findProductByUUIDAndUpdate(UpdateProductDTO body, UUID id, String email) throws NotFoundException {
+        Product foundProduct = this.findById(id);
+        if(!isProductOwnedBySupplier(id, email)){
+            return null;
+        }
+        foundProduct.setName(body.name());
+        foundProduct.setCategory(body.category());
+        foundProduct.setDescription(body.description());
+        foundProduct.setUnit_price(body.unit_price());
+        foundProduct.setQuantity(body.quantity());
+        foundProduct.setProduct_status(body.product_status());
+        return productsRepository.save(foundProduct);
     }
 
 
