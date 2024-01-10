@@ -19,6 +19,7 @@ public interface ProductsRepository extends JpaRepository<Product, UUID> {
     List<Product> findAllBySupplier(Supplier supplier);
     Page<Product> findByCategory(ProductCategory category, Pageable pageable);
     Optional<Product> findByIdAndSupplierEmail(UUID productId, String supplierEmail);
+    List<Product> findByNameStartingWithIgnoreCase(String name);
     @Query("SELECT p FROM Product p JOIN FETCH p.supplier WHERE p.id = :productId")
     Product getProductByIdWithSupplier(@Param("productId") UUID productId);
 }

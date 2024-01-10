@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import massimomauro.Customprojectecommercegrocery.entities.enums.ProductCategory;
 import massimomauro.Customprojectecommercegrocery.entities.enums.ProductStatus;
+import massimomauro.Customprojectecommercegrocery.entities.enums.UnitOfMeasure;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,6 +23,7 @@ public class Product {
     private UUID id;
     private String name;
     private ProductCategory category;//da vedere se metterlo come ENUM o no
+    private UnitOfMeasure unitOfMeasure;
     private String description;
     private String photo;
     private String quality;//come posso attestare la qualità del prodotto

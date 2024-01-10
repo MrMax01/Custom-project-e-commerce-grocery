@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import massimomauro.Customprojectecommercegrocery.entities.enums.ProductCategory;
 import massimomauro.Customprojectecommercegrocery.entities.enums.ProductStatus;
+import massimomauro.Customprojectecommercegrocery.entities.enums.UnitOfMeasure;
 
 public record UpdateProductDTO(
         @NotEmpty(message = "il nome è un campo obbligatorio!")
@@ -14,6 +15,8 @@ public record UpdateProductDTO(
         ProductCategory category,
         @NotEmpty(message = "la categoria è un campo obbligatorio!")
         ProductStatus product_status,
+        @NotEmpty(message = "la categoria è un campo obbligatorio!")
+        UnitOfMeasure unitOfMeasure,
         @NotEmpty(message = "inserisci una breve descrizione del prodotto!")
         @Size(min = 3, message = "la descrizione essere lunga almeno 3 caratteri")
         String description,

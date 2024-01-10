@@ -95,6 +95,7 @@ public class ProductsService {
         newProduct.setDescription(body.description());
         newProduct.setUnit_price(body.unit_price());
         newProduct.setQuantity(body.quantity());
+        newProduct.setUnitOfMeasure(body.unitOfMeasure());
         newProduct.setPublicatedAt(today);
         newProduct.setPhoto("http://ui-avatars.com/api/?name=" + body.name().trim().replace(" " , "") + "+" + body.name().trim().replace(" " , ""));
         newProduct.setSupplier(suppliersService.findByEmail(email));
@@ -111,6 +112,7 @@ public class ProductsService {
         foundProduct.setCategory(body.category());
         foundProduct.setDescription(body.description());
         foundProduct.setUnit_price(body.unit_price());
+        foundProduct.setUnitOfMeasure(body.unitOfMeasure());
         foundProduct.setQuantity(body.quantity());
         foundProduct.setProduct_status(body.product_status());
         return productsRepository.save(foundProduct);
@@ -123,5 +125,11 @@ public class ProductsService {
     public boolean isProductOwnedBySupplier(UUID productId, String supplierEmail) {
         // Verifica se il prodotto esiste e se il fornitore associato è quello autenticato
         return productsRepository.findByIdAndSupplierEmail(productId, supplierEmail).isPresent();
+    }
+
+
+    public List<Product> findByNameStartingWith(String name){
+        return productsRepository.findByNameStartingWithIgnoreCase(name);
+
     }
 }

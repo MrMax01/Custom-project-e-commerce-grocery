@@ -54,5 +54,10 @@ public class ProductsController {
         return productsService.getProductsBySupplier(supplierId);
     }
 
+    @GetMapping("/nomeProdotto")
+    public List<Product> findByNameStartingWith(@RequestParam String name){
+        return productsService.findByNameStartingWith(name);
+
+    }
 
 }
