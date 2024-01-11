@@ -1,5 +1,7 @@
 package massimomauro.Customprojectecommercegrocery.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +17,8 @@ import java.util.UUID;
 public class Supplier extends Entrepreneur{
 
 
+    @OneToMany(mappedBy = "supplier", fetch = FetchType.EAGER)
+    private List<Order> orders;
 
     @OneToMany(mappedBy = "supplier")
     private List<Product> products;

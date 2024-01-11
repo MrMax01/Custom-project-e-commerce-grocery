@@ -3,6 +3,7 @@ package massimomauro.Customprojectecommercegrocery.controllers;
 import com.cloudinary.utils.ObjectUtils;
 import massimomauro.Customprojectecommercegrocery.entities.Customer;
 import massimomauro.Customprojectecommercegrocery.entities.Product;
+import massimomauro.Customprojectecommercegrocery.entities.enums.ProductCategory;
 import massimomauro.Customprojectecommercegrocery.services.AuthService;
 import massimomauro.Customprojectecommercegrocery.services.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +26,15 @@ public class ProductsController {
     AuthService authService;
     @GetMapping("")
     public Page<Product> getAllProduct(@RequestParam(defaultValue = "0")int page ,
-                                    @RequestParam(defaultValue = "10")int size,
-                                    @RequestParam(defaultValue = "id")String order,
-                                    @RequestParam(defaultValue = "true")boolean ascending,
+                                       @RequestParam(defaultValue = "10")int size,
+                                       @RequestParam(defaultValue = "id")String order,
+                                       @RequestParam(defaultValue = "true")boolean ascending,
+                                       @RequestParam(name = "category", required = false) ProductCategory category,
                                        @RequestParam(defaultValue ="false") boolean orderByDate){
-        return productsService.getProducts(page , size , order , ascending,  orderByDate);
+
+
+        return productsService.getProducts(page, size, order, ascending, orderByDate, category);
+
     }
     @GetMapping("/{id}")
     public Product findById(@PathVariable UUID id) {
@@ -48,12 +53,11 @@ public class ProductsController {
     public List<Product> getProductsBySupplier(@PathVariable UUID supplierId) {
         return productsService.getProductsBySupplier(supplierId);
     }
-    @PatchMapping("/upload/{id}")
-    @PreAuthorize("hasAuthority('SUPPLIER')")
-    public String uploadPicture(@PathVariable UUID id, @RequestParam("avatar")MultipartFile file) throws IOException {
-        authService.checkProductOwner(id);
-        return productsService.imageUpload(id, file);
-    }
 
+    @GetMapping("/nomeProdotto")
+    public List<Product> findByNameStartingWith(@RequestParam String name){
+        return productsService.findByNameStartingWith(name);
+
+    }
 
 }

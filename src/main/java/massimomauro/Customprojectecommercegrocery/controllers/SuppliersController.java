@@ -1,6 +1,8 @@
 package massimomauro.Customprojectecommercegrocery.controllers;
 
+import massimomauro.Customprojectecommercegrocery.entities.Cart;
 import massimomauro.Customprojectecommercegrocery.entities.Entrepreneur;
+import massimomauro.Customprojectecommercegrocery.entities.Product;
 import massimomauro.Customprojectecommercegrocery.entities.Supplier;
 import massimomauro.Customprojectecommercegrocery.services.EntrepreneursService;
 import massimomauro.Customprojectecommercegrocery.services.SuppliersService;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -37,7 +40,10 @@ public class SuppliersController {
     }
 
 
-
+    @GetMapping("/products")
+    public List<Product> getMyProductList(@AuthenticationPrincipal UserDetails currentUser) {
+        return suppliersService.getProductList( currentUser.getUsername() );
+    }
 
 /*
     @PatchMapping("/upload/{id}")
