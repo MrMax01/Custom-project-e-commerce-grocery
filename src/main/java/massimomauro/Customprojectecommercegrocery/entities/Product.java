@@ -45,7 +45,7 @@ public class Product {
     @JsonIgnore
     private List<Cart> carts;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "product", orphanRemoval = true)
     @JsonIgnore
     private List<Order> orders;
 
